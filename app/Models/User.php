@@ -8,8 +8,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
+
+
+    public function roles()
+{
+    return $this->belongsToMany(Role::class, 'role_user','user_id', 'role_id')->withTimestamps()->as('role_user');
+}
+
+
+function product()
+{
+    return $this->hasMany(Product::class, 'user_id','id' );
+}
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

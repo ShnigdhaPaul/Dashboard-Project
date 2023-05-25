@@ -1,7 +1,7 @@
 @extends('layout')
-@section('style')   <link href="{{asset('css/auth.css')}}" rel="stylesheed">
- @endsection
-@section('title') Home @endsection
+@section('style')   <link href="{{asset('css/auth.css')}}" rel="stylesheed">@endsection
+
+@section('title') New User Info @endsection
 @section('contents')
 
 @if (session()->has('msg'))
@@ -13,10 +13,11 @@
 
     </head>
     <body>
+        
     <div class="signup-form">
-        <form action="{{route('register')}}" method="post">
+        <form action="{{route('user.store')}}" method="post">
             @csrf
-            <h2>Sign Up</h2>
+            <h2>Add A new User</h2>
             <p>It's free and only takes a minute.</p>
             <hr>
             <div class="form-group">
@@ -39,8 +40,15 @@
                 <label>Confirm Password</label>
                 <input type="password" class="form-control" name="password_confirmation" required="required">
             </div>
+            <select multiple name="roles[]" class="form-select mb-2" aria-label="Defult select examples">
+               @foreach ($roles as $role)
+               <option value="{{$role->id}}">{{$role->name}}</option>
+               @endforeach
+             
+            </select>
+
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block btn-lg">Sign Up</button>
+                <button type="submit" class="btn btn-primary btn-block btn-lg">Add Member</button>
             </div>
             <p class="small text-center">By clicking the Sign Up button, you agree to our <br><a href="#">Terms &amp; Conditions</a>, and <a href="#">Privacy Policy</a></p>
         </form>
