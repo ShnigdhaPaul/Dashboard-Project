@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Mail\ProductMail;
 use App\Models\Product;
 use App\Models\User;
+use App\Notifications\ProductNotification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,7 +33,9 @@ class NotifyUsersForProduct implements ShouldQueue
     {
         $users= User::all();
         $users->map(function (User $users){
-Mail::to($users->email)->send(new ProductMail($this->product, $users));
+//Mail::to($users->email)->send(new ProductMail($this->product, $users));
+
+$users->notify(new ProductNotification($this->product));
         });
     }
 }

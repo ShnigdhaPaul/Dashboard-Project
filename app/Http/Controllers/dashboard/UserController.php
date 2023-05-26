@@ -52,11 +52,11 @@ function store(Request $request)
 
 $user->roles()->syncWithoutDetaching($request->roles,[]);
 //send a mail
-//Mail::to($user->email)->send(new UserMailer($user));
+Mail::to($user->email)->send(new UserMailer($user));
 
 //add to queue
 
-Mail::to($user->email)->later(now()->addSecond(20),new UserMailer($user));
+//Mail::to($user->email)->later(now()->addSecond(12),new UserMailer($user));
 
       return redirect()->route('user.display')->with('msg', 'Member ADDED');
       

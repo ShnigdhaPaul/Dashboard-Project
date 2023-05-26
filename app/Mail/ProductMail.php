@@ -23,8 +23,9 @@ class ProductMail extends Mailable implements shouldQueue
      */
     public function __construct( Product $product ,User $user )
     {
-        $this->user = $user;
         $this->product = $product;
+        $this->user = $user;
+       
 
     }
 

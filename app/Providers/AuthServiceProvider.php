@@ -28,8 +28,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     { 
-        
-        /* 
+       
         FacadesGate::define('my-product', function (User $user, Product $product)
         {
             return $user->id === $product->user_id;
@@ -40,7 +39,7 @@ class AuthServiceProvider extends ServiceProvider
         FacadesGate::define('can-create', function(User $user){
             return $user->roles[0]->name === "admin";
 
-        });*/
+        });
 
        
     }

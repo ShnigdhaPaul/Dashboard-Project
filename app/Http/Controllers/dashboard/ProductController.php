@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use App\Events\ProductCreated;
 use App\Http\Controllers\Controller;
 use App\Jobs\NotifyUsersForProduct;
+use App\Mail\ProductMail;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
+   
     function __construct()
   {
     $this->middleware('auth');
@@ -46,7 +51,7 @@ class ProductController extends Controller
             'amount'=>['required'],
             
                ]);
-               //try{
+               try{
            
                  $product= Product::create([
                      'name'=>$request->input('name'),
@@ -56,14 +61,17 @@ class ProductController extends Controller
                    
            
                  ]);
-                  NotifyUsersForProduct::dispatch($product);
+                 
+            
+
           
                  return redirect()->route('product.index')->with('msg', 'product added ');
-               //}catch(\Exception $e){
+               }catch(\Exception $e){
            
-                // return redirect()->back()->with('msg', 'product NOT ADDED. Please try again');
-              // }
+                return redirect()->back()->with('msg', 'product NOT ADDED. Please try again');
+              }
     }
+
 
     /**
      * Display the specified resource.
